@@ -11,20 +11,6 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-    <style>
-        .nav {
-            font-family: 'Kanit', sans-serif;
-        }
-        .vcenter {
-            display: inline-block;
-            vertical-align: middle;
-            float: none;
-        }
-        .vertical-align {
-            display: flex;
-            align-items: center;
-        }
-    </style>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
 <body>
@@ -65,7 +51,7 @@
     ?><br>
     <div class="container">
         <div class="row">
-            <div class="col-md-7 col-lg-4 mx-auto vcenter">
+            <div class="col-sm-auto col-md-7 col-lg-4 mx-auto vcenter">
                 <div class="card">
                     <form action="" method="POST">
                         <div class="card-header">
@@ -73,14 +59,14 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="username" class="col-sm-4 col-form-label my-auto">Username</label>
-                                <div class="col-sm-8">
+                                <label for="username" class="col-sm-5 col-form-label my-auto">Username</label>
+                                <div class="col-sm-7">
                                     <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-sm-4 col-form-label my-auto">Password</label>
-                                <div class="col-sm-8">
+                                <label for="password" class="col-sm-5 col-form-label my-auto">Password</label>
+                                <div class="col-sm-7">
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                                 </div>
                             </div>

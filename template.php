@@ -1,5 +1,5 @@
 <?php
-    require_once('session.php');
+    session_start();
     error_reporting(~E_NOTICE); ?>
 <!DOCTYPE html>
 <html>
