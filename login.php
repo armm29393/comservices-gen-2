@@ -1,6 +1,7 @@
 <?php
+    require_once('connect.php');
     session_start();
-    require("connect.php");
+    // if(isset($_POST['submit'])){header("location:index.php");}
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,8 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
     <style>
-        nav {
+        .nav {
             font-family: 'Kanit', sans-serif;
+        }
+        .vcenter {
+            display: inline-block;
+            vertical-align: middle;
+            float: none;
+        }
+        .vertical-align {
+            display: flex;
+            align-items: center;
         }
     </style>
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
@@ -30,42 +40,32 @@
                 $_SESSION['username'] = $row['username'];
                 $_SESSION['ID_position'] = $row['ID_position'];
                 header("location:index.php");
-            } else { //echo "Username or Password is invalid";?>
-                <div class="alert alert-danger">
-                    <strong>โอ๊ะโอ..</strong><br>Username or Password is invalid
-                </div>
-                <div class="modal fade" tabindex="-1" role="dialog">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Modal title</h4>
+            } else { //echo "Username or Password is invalid";
+    ?>
+                <!-- Wrong password alert -->
+                <!-- <div class="col-md-6 mx-auto">
+                    <div class="alert alert-danger col-3 mx-auto" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        Enter a valid email address
+                    </div>
+                </div> -->
+                <!-- <div class="container">
+                    <div class="row vertical-align"> -->
+                    <br><div class="alert alert-danger alert-dismissible col-md-4 mx-auto"> 
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <!-- <strong>โอ๊ะโอ..</strong><br>Username or Password is invalid -->
+                        <strong>โอ๊ะโอ..</strong><br>ชื่อบัญชีผู้ใช้งาน หรือ รหัสผ่าน ผิดพลาด!
                         </div>
-                        <div class="modal-body">
-                            <p>One fine body&hellip;</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                        </div><!-- /.modal-content -->
-                    </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-                <script>
-                    BootstrapDialog.show({
-                        type: 'TYPE_DANGER',
-                        title: 'Say-hello dialog',
-                        message: 'Hi Apple!'
-                    });
-                </script>
-                <?php
+                    <!-- </div>
+                </div> -->
+    <?php
             }
         }
-    ?>
-    <br>
+    ?><br>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mx-auto">
+            <div class="col-md-7 col-lg-4 mx-auto vcenter">
                 <div class="card">
                     <form action="" method="POST">
                         <div class="card-header">
@@ -73,14 +73,14 @@
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
-                                <label for="username" class="col-sm-3 col-md-4 form-label my-auto">Username</label>
-                                <div class="col-sm-9 col-xs-3">
+                                <label for="username" class="col-sm-4 col-form-label my-auto">Username</label>
+                                <div class="col-sm-8">
                                     <input type="text" class="form-control" name="username" id="username" placeholder="Username" required autofocus>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="password" class="col-sm-3 col-md-4 form-label my-auto">Password</label>
-                                <div class="col-sm-9 col-xs-3">
+                                <label for="password" class="col-sm-4 col-form-label my-auto">Password</label>
+                                <div class="col-sm-8">
                                     <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                                 </div>
                             </div>
