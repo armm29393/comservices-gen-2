@@ -1,4 +1,5 @@
 <?php
+    include_once('template.php');
     require_once('connect.php');
     session_start();
     // if(isset($_POST['submit'])){header("location:index.php");}
@@ -11,21 +12,23 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Kanit" rel="stylesheet">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
     <?php
         if (isset($_POST['submit'])){
             $username = $_POST['username'];
             $password = $conn->real_escape_string($_POST['password']);
-            $sql = "SELECT * FROM `login` WHERE `username` = '".$username."' AND `password` = '".$password."'";
+            $sql = "SELECT * FROM `emp` WHERE `username` = '".$username."' AND `password` = '".base64_encode($password)."'";
             $result = $conn->query($sql);
-            #print_r($result);
             if($result->num_rows > 0){
                 echo $row = $result->fetch_assoc();
                 $_SESSION['username'] = $row['username'];
+                $_SESSION['emp_name'] = $row['emp_name'];
                 $_SESSION['ID_position'] = $row['ID_position'];
                 header("location:index.php");
+                // print_r($_SESSION);
             } else { //echo "Username or Password is invalid";
     ?>
                 <!-- Wrong password alert -->
@@ -38,7 +41,7 @@
                 </div> -->
                 <!-- <div class="container">
                     <div class="row vertical-align"> -->
-                    <br><div class="alert alert-danger alert-dismissible col-md-4 mx-auto"> 
+                    <br><div class="alert alert-danger alert-dismissible col-md-4 mx-auto">
                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <!-- <strong>โอ๊ะโอ..</strong><br>Username or Password is invalid -->
                         <strong>โอ๊ะโอ..</strong><br>ชื่อบัญชีผู้ใช้งาน หรือ รหัสผ่าน ผิดพลาด!
@@ -51,11 +54,11 @@
     ?><br>
     <div class="container">
         <div class="row">
-            <div class="col-sm-auto col-md-7 col-lg-4 mx-auto vcenter">
+            <div class="col-sm-auto col-md-7 col-lg-4 mx-auto">
                 <div class="card">
                     <form action="" method="POST">
                         <div class="card-header">
-                            Login to your Account!
+                            <h4 class="mb-0 my-2">Login to your Account!</h4>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
@@ -79,8 +82,11 @@
             </div>
         </div>
     </div>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 </body>
 </html>
