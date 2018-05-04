@@ -1,7 +1,8 @@
 <?php
     require_once('connect.php');
     session_start();
-    error_reporting(~E_NOTICE); ?>
+    error_reporting(~E_NOTICE);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Kanit|Itim" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
     <style>
         body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);height: 100%}
         nav {
@@ -34,7 +37,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-lblue">
         <div class="container">
-            <a class="navbar-brand text-light" href="index.php">P&W Computer Services</a>
+            <a class="navbar-brand text-light" href="index.php"><i class="fas fa-bug"></i> P&W Computer Services</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -48,33 +51,35 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                <?php if (isset($_SESSION['username'])) {
-                    echo '<li class="nav-item dropdown">'.
-                    '<a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.
-                    'ยินดีต้อนรับ คุณ '.$_SESSION['emp_name'].'</a>'.
-                    '<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">';
-                    $sql = "SELECT `Name_position` FROM `position` WHERE `ID_position` = '".$_SESSION['ID_position']."'";
-                    $result = $conn->query($sql);
-                    $row = $result->fetch_assoc();
-                    // print_r($row);
+                    <?php
+                    if (isset($_SESSION['username'])) {
+                        echo '<li class="nav-item dropdown">'.
+                        '<a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.
+                        'ยินดีต้อนรับ คุณ '.$_SESSION['emp_name'].'</a>'.
+                        '<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">';
+                        $sql = "SELECT `Name_position` FROM `position` WHERE `ID_position` = '".$_SESSION['ID_position']."'";
+                        $result = $conn->query($sql);
+                        $row = $result->fetch_assoc();
+                        // print_r($row);
 
-                    if($row['Name_position'] == 'Salesman') { // พนักงานขาย
-                        echo '<a class="dropdown-item" href="#">พนักงานขาย</a>';
-                    } elseif($row['Name_position'] == 'Technician') { // ช่างซ่อม
-                        echo '<a class="dropdown-item" href="repair-form.php">ช่างซ่อม</a>';
-                    } elseif($row['Name_position'] == 'Manager') { // ผู้จัดการ
-                        echo '<a class="dropdown-item" href="admin.php">Admin Check Status</a>'.
-                        '<a class="dropdown-item" href="regis-staff.php">ลงทะเบียน</a>'.
-                        '<a class="dropdown-item" href="#">Update</a>'.
-                        '<a class="dropdown-item" href="#">Delete</a>';
+                        if($row['Name_position'] == 'Reception') { // พนักงานขาย
+                            echo '<a class="dropdown-item" href="#">พนักงานรับงาน</a>';
+                        } elseif($row['Name_position'] == 'Technician') { // ช่างซ่อม
+                            echo '<a class="dropdown-item" href="repair-form.php">ช่างซ่อม</a>';
+                        } elseif($row['Name_position'] == 'Manager') { // ผู้จัดการ
+                            echo '<a class="dropdown-item" href="admin.php">Admin Check Status</a>'.
+                            '<a class="dropdown-item" href="regis-staff-1.php">ลงทะเบียน</a>'.
+                            '<a class="dropdown-item" href="#">Update</a>'.
+                            '<a class="dropdown-item" href="#">Delete</a>';
+                        }
+                        echo '<div class="dropdown-divider"></div>'.
+                        '<a class="dropdown-item bg-danger text-light" href="logout.php">'.
+                        '<i class="fas fa-sign-out-alt"></i> ออกจากระบบ</a>'.
+                        '</div></li>';
+                    } else {
+                       echo '<li class="nav-item"><a class="nav-link text-light" href="login.php">Login</a></li>';
                     }
-                    echo '<div class="dropdown-divider"></div>'.
-                    '<a class="dropdown-item bg-danger text-light" href="logout.php">'.
-                    '<i class="oi oi-account-logout"></i> ออกจากระบบ</a>'.
-                    '</div></li>';
-                } else {
-                   echo '<li class="nav-item"><a class="nav-link text-light" href="login.php">Login</a></li>';
-                } ?>
+                     ?>
                 </ul>
             </div>
         </div>

@@ -1,8 +1,25 @@
 <?php
     include_once('template.php');
     require_once('connect.php');
-    session_start();
-    // if(isset($_POST['submit'])){header("location:index.php");}
+    if(isset($_SESSION['username'])){header("location:index.php");}
+    if (isset($_POST['submit'])){
+        $username = $_POST['username'];
+        $password = $conn->real_escape_string($_POST['password']);
+        $sql = "SELECT * FROM `emp` WHERE `username` = '".$username."' AND `password` = '".base64_encode($password)."'";
+        $result = $conn->query($sql);
+        if($result->num_rows > 0){
+            $row = $result->fetch_assoc();
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['emp_name'] = $row['emp_name'];
+            $_SESSION['ID_position'] = $row['ID_position'];
+            header("location:index.php");
+            // print_r($_SESSION);
+        } else { //echo "Username or Password is invalid";
+            echo '<br><div class="alert alert-danger alert-dismissible col-md-4 mx-auto">'.
+            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.
+            '<strong>โอ๊ะโอ..</strong><br>ชื่อบัญชีผู้ใช้งาน หรือ รหัสผ่าน ผิดพลาด!</div>';
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,43 +33,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 </head>
 <body>
-    <?php
-        if (isset($_POST['submit'])){
-            $username = $_POST['username'];
-            $password = $conn->real_escape_string($_POST['password']);
-            $sql = "SELECT * FROM `emp` WHERE `username` = '".$username."' AND `password` = '".base64_encode($password)."'";
-            $result = $conn->query($sql);
-            if($result->num_rows > 0){
-                echo $row = $result->fetch_assoc();
-                $_SESSION['username'] = $row['username'];
-                $_SESSION['emp_name'] = $row['emp_name'];
-                $_SESSION['ID_position'] = $row['ID_position'];
-                header("location:index.php");
-                // print_r($_SESSION);
-            } else { //echo "Username or Password is invalid";
-    ?>
-                <!-- Wrong password alert -->
-                <!-- <div class="col-md-6 mx-auto">
-                    <div class="alert alert-danger col-3 mx-auto" role="alert">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        Enter a valid email address
-                    </div>
-                </div> -->
-                <!-- <div class="container">
-                    <div class="row vertical-align"> -->
-                    <br><div class="alert alert-danger alert-dismissible col-md-4 mx-auto">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        <!-- <strong>โอ๊ะโอ..</strong><br>Username or Password is invalid -->
-                        <strong>โอ๊ะโอ..</strong><br>ชื่อบัญชีผู้ใช้งาน หรือ รหัสผ่าน ผิดพลาด!
-                        </div>
-                    <!-- </div>
-                </div> -->
-    <?php
-            }
-        }
-    ?><br>
-    <div class="container">
+<br><div class="container">
         <div class="row">
             <div class="col-sm-auto col-md-7 col-lg-4 mx-auto">
                 <div class="card">
